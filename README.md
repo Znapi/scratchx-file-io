@@ -7,7 +7,7 @@ Java is required to run this helper app.
 
 How to use
 ---
-To use this helper app with the Scratch extension, simply download the runnable JAR file here, and double click it to run it. It will ask for you to choose a 'root' directory.
+To use this helper app with the Scratch extension, simply download the runnable JAR file [here](https://github.com/Znapi/scratchx-simple-file-io-helper-app/releases/tag/v1.0), and double click it to run it. It will ask for you to choose a 'root' directory.
 
 The root directory is where the extension begins to access files at. For example, if you set the root directory to `/example/directory/`, then when the extension says `read file [example.txt]`, it will open and read the file  `/example/directory/example.txt`. Choose a directory that doesn't contain important files.
 
