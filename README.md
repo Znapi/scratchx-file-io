@@ -1,5 +1,5 @@
 # Simple File I/O Helper App for Scratch Extension
-This is a helper app to be used in conjunction with the [Simple File I/O Scratch Extension](https://github.com/Znapi/scratchx/wiki/simple-file-io).
+This is a helper app to be used in conjunction with the [Simple File I/O Scratch Extension](https://github.com/Znapi/scratchx/wiki/file-io).
 
 Use caution when using this helper app with extensions you do not trust, as it implements no security. Anything can make requests to it and gain access to your file system, and the app does not allow you to deny reading and writing files.
 
