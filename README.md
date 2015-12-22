@@ -1,13 +1,15 @@
 # Simple File I/O Helper App for Scratch Extension
 This is a helper app to be used in conjunction with the [Simple File I/O Scratch Extension](https://github.com/Znapi/scratchx/wiki/file-io).
 
+[**Download**](https://github.com/Znapi/scratchx-simple-file-io-helper-app/releases/download/v1.0/simple-file-io-helper-app.jar) (Runnable JAR file)
+
 Use caution when using this helper app with extensions you do not trust, as it implements no security. Anything can make requests to it and gain access to your file system, and the app does not allow you to deny reading and writing files.
 
 Java is required to run this helper app.
 
 How to use
 ---
-To use this helper app with the Scratch extension, simply download the runnable JAR file [here](https://github.com/Znapi/scratchx-simple-file-io-helper-app/releases/tag/v1.0), and double click it to run it. It will ask for you to choose a 'root' directory.
+To use this helper app with the Scratch extension, simply download it using the link above, and double click it to run it. It will ask for you to choose a 'root' directory.
 
 The root directory is where the extension begins to access files at. For example, if you set the root directory to `/example/directory/`, then when the extension says `read file [example.txt]`, it will open and read the file  `/example/directory/example.txt`. Choose a directory that doesn't contain important files.
 
@@ -19,8 +21,8 @@ The helper app can also be used from the command line, with or without making a 
 To run JAR files from the command line, use `java -jar path/to/.jar`
 
 On the command line, the helper app takes two arguments. They go after `path/to/.jar`
-* `path/to/root/dir/`: the root directory. *Required* unless the `-gui` option is also used, in which case it is optional.
-* `-gui`: *Not required*. If not used, the app runs in console mode. No extra window is created, and the app logs to the console. If the option is used, the app runs in the normal GUI mode, and it creates and logs to a window.
+* `path/to/root/dir/`: the root directory. **Required** unless the `-gui` option is also used, in which case it is *optional*.
+* `-gui`: **Not required**. If not used, the app runs in console mode. No extra window is created, and the app logs to the console. If the option is used, the app runs in the normal GUI mode, and it creates and logs to a window.
 
 Technical Details
 ---
