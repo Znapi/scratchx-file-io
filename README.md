@@ -1,7 +1,7 @@
 # Simple File I/O Helper App for Scratch Extension
 This is a helper app to be used in conjunction with the [Simple File I/O Scratch Extension](https://github.com/Znapi/scratchx/wiki/file-io).
 
-[**Download**](https://github.com/Znapi/scratchx-simple-file-io-helper-app/releases/download/v1.0/simple-file-io-helper-app.jar) (Runnable JAR file)
+[**Download**](https://github.com/Znapi/scratchx-simple-file-io-helper-app/releases/download/v1.1/simple-file-io-helper-app.jar) (Runnable JAR file)
 
 **Safety notice**: It technically is not safe to use this helper app. It allows anything on your computer, Scratch extensions, programs, etc., to gain full access to your file system. However, is unlikely that anything else on your computer will expect that you are running this helper app and exploit it. Nevertheless, be careful. Only use this helper app when you are using Scratch extensions and projects that you trust.
 
