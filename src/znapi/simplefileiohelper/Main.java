@@ -89,7 +89,7 @@ public final class Main extends NanoHTTPD {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setDialogTitle("Select a directory to use as root");
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				
+
 				switch(fileChooser.showOpenDialog(frame)) {
 				case JFileChooser.APPROVE_OPTION:
 					this.rootDir = fileChooser.getSelectedFile().getAbsolutePath();
@@ -165,6 +165,9 @@ public final class Main extends NanoHTTPD {
 	public Response serve(IHTTPSession session) {
 		Response r = newFixedLengthResponse(null);//new Response(null);
 		r.addHeader("Access-Control-Allow-Origin", "*");
+		r.addHeader("Access-Control-Expose-Headers", "X-Is-ScratchX-File-IO-Helper-App");
+		r.addHeader("X-Is-ScratchX-File-IO-Helper-App", "yes");
+
 		File f;
 		String uri = session.getUri();
 		switch(session.getMethod()) {
