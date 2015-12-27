@@ -5,7 +5,7 @@ This is a helper app to be used in conjunction with the [Simple File I/O Scratch
 
 **Safety notice**: It technically is not safe to use this helper app. It allows anything on your computer, Scratch extensions, programs, etc., to gain full access to your file system. However, is unlikely that anything else on your computer will expect that you are running this helper app and exploit it. Nevertheless, be careful. Only use this helper app when you are using Scratch extensions and projects that you trust.
 
-Java is required to run this helper app.
+**Java is required** to run this helper app.
 
 How to use
 ---

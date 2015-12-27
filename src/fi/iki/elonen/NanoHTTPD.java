@@ -1150,7 +1150,8 @@ public abstract class NanoHTTPD {
          * Headers for the HTTP response. Use addHeader() to add lines. the
          * lowercase map is automaticaly kept up to date.
          */
-        private final Map<String, String> header = new HashMap<String, String>() {
+        @SuppressWarnings("serial")
+		private final Map<String, String> header = new HashMap<String, String>() {
 
             public String put(String key, String value) {
                 lowerCaseHeader.put(key == null ? key : key.toLowerCase(), value);
@@ -1550,11 +1551,12 @@ public abstract class NanoHTTPD {
         return MIME_TYPES;
     }
 
-    private static void loadMimeTypes(Map<String, String> result, String resourceName) {
+    @SuppressWarnings({ "unchecked", "rawtypes" }) // for some reason it raises an error to try to cast properties to Map<String,String> on line 1570
+	private static void loadMimeTypes(Map<String, String> result, String resourceName) {
         try {
             Enumeration<URL> resources = NanoHTTPD.class.getClassLoader().getResources(resourceName);
             while (resources.hasMoreElements()) {
-                URL url = (URL) resources.nextElement();
+                URL url = resources.nextElement();
                 Properties properties = new Properties();
                 InputStream stream = null;
                 try {

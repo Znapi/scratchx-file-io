@@ -3,6 +3,8 @@ bin/
 .project
 .settings
 
+LICENSE-NanoHTTPD
+
 .DS_Store
 .DS_Store?
 ._*
