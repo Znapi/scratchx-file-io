@@ -1,5 +1,5 @@
 # Simple File I/O Helper App for Scratch Extension
-This is a helper app to be used in conjunction with the [Simple File I/O Scratch Extension](https://github.com/Znapi/scratchx/wiki/file-io).
+This is a helper app to be used with the [File I/O Scratch Extension](https://github.com/Znapi/scratchx/wiki/file-io).
 
 [**Download**](https://github.com/Znapi/scratchx-file-io-helper-app/releases/download/v1.1/simple-file-io-helper-app.jar) (Runnable JAR file)
 
