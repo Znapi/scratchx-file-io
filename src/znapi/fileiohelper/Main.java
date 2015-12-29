@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
+import java.util.Hashtable;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -17,8 +17,6 @@ import javax.swing.text.PlainDocument;
 
 import fi.iki.elonen.NanoHTTPD;
 import fi.iki.elonen.NanoHTTPD.Response.Status;
-import znapi.fileiohelper.TableModel;
-import znapi.fileiohelper.NewEntryDialog;
 
 public final class Main extends NanoHTTPD implements TableModelListener {
 
@@ -26,16 +24,17 @@ public final class Main extends NanoHTTPD implements TableModelListener {
 	private boolean hasConsole;
 	private static final int port = 8080;
 
-	private HashMap<String, Boolean[]> permissions;
+	public Hashtable<String, Boolean> readPermissions;
+	public Hashtable<String, Boolean> writePermissions;
 
-	private TableModel tableModel;
+	private PermissionsTableModel tableModel;
 
 	private JFrame frame;
 	private JTable table;
 	private JTextArea textArea;
 	private PlainDocument document;
 
-	private static final String usageMsg = "Usage:\n\tjava -jar simple-file-io-helper-app.jar [-gui] /root/directory/\n\to  -gui is an optional argument. It causes the app to run with\n\t    a GUI rather in console mode.";
+	private static final String usageMsg = "Usage:\n\tjava -jar simple-file-io-helper-app.jar [-gui] /root/directory\n\to  -gui is an optional argument. It causes the app to run with\n\t    a GUI rather in console mode.";
 
 	public static void main(String[] args) {
 		String rootDir = null;
@@ -83,8 +82,10 @@ public final class Main extends NanoHTTPD implements TableModelListener {
 
 	public Main(String rootDir, boolean useConsole) {
 		super(port);
-		this.hasConsole = hasConsole;
-		this.permissions = new HashMap<String, Boolean[]>();
+		this.hasConsole = useConsole;
+		readPermissions = new Hashtable<String, Boolean>();
+		writePermissions = new Hashtable<String, Boolean>();
+
 		if(hasConsole)
 			this.rootDir = rootDir;
 		else {
@@ -97,7 +98,7 @@ public final class Main extends NanoHTTPD implements TableModelListener {
 			textArea.setEditable(false);
 
 			// create table of file permissions
-			tableModel = new TableModel();
+			tableModel = new PermissionsTableModel();
 			tableModel.addTableModelListener(this);
 			table = new JTable(tableModel);
 			table.setFillsViewportHeight(true);
@@ -159,59 +160,43 @@ public final class Main extends NanoHTTPD implements TableModelListener {
 			log("Server started. Close the window to exit.");
 	}
 
-	/*public Main(String rootDir) {
-		super(port);
-		this.rootDir = rootDir;
-		permissions = new HashMap<String, Boolean[]>();
-
-		frame = new JFrame("ScratchX File Helper App");
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-		JPanel panel = new JPanel(new GridLayout(1, 0));
-
-		tableModel = new TableModel();
-		tableModel.addTableModelListener(this);
-		table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-		table.setFillsViewportHeight(true);
-
-		JScrollPane scrollPane = new JScrollPane(table);
-		panel.add(scrollPane);
-
-		frame.setContentPane(panel);
-		frame.pack();
-		frame.setVisible(true);
-
-		//addPermission("/todo.txt", true, false);
-
-		ServerRunner.executeInstance(this);
-	}*/
-
-	public Boolean[] checkPermissions(String dir) {
-		if(!permissions.containsKey(dir)) {
-			NewEntryDialog d = new NewEntryDialog(frame, dir);
-			try {
-				log("checking permission");
-				synchronized(d) {
-					d.wait();
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			addPermission(dir, d.canReadBox.getState(), d.canWriteBox.getState());
-			d.dispose();
+	public void checkRead(String dir) {
+		if(readPermissions.containsKey(dir)) {
+			if(!readPermissions.get(dir))
+				throw new SecurityException();
 		}
-		return permissions.get(dir);
+		else {
+			boolean allow = PermissionDialog.askPermission(frame, dir, true);
+			readPermissions.put(dir, allow);
+			tableModel.addReadPermission(dir, allow);
+			if(!allow)
+				throw new SecurityException();
+		}
 	}
 
-	public Status createFile(File f) {
+	public void checkWrite(String dir) {
+		if(writePermissions.containsKey(dir)) {
+			if(!writePermissions.get(dir))
+				throw new SecurityException();
+		}
+		else {
+			boolean allow = PermissionDialog.askPermission(frame, dir, false);
+			writePermissions.put(dir, allow);
+			tableModel.addWritePermission(dir, allow);
+			if(!allow)
+				throw new SecurityException();
+		}
+	}
+
+	public Status createFile(File f, String dir) {
 		log("Creating file: " + f.getName());
 		try {
+			checkWrite(dir);
 			f.getParentFile().mkdirs();
 			f.createNewFile();
 			return Status.OK;
 		} catch(SecurityException e) {
-			log("Denied by security manager");
+			log("Unauthorized");
 			return Status.UNAUTHORIZED;
 		} catch(FileNotFoundException e) {
 			log("ERROR: FILE DOES NOT EXIST"); // the file was just created
@@ -222,15 +207,16 @@ public final class Main extends NanoHTTPD implements TableModelListener {
 		}
 	}
 
-	public Status writeFile(File f, String contents) {
+	public Status writeFile(File f, String dir, String contents) {
 		log("Writing file: " + f.getName());
 		try {
+			checkWrite(dir);
 			PrintWriter writer = new PrintWriter(f);
 			writer.print(contents);
 			writer.close();
 			return Status.OK;
 		} catch (SecurityException e) {
-			log("Denied by security manager");
+			log("Unauthorized");
 			return Status.UNAUTHORIZED;
 		} catch (FileNotFoundException e) {
 			log("ERROR: FILE DOES NOT EXIST"); // the caller ensures that the file exists
@@ -259,73 +245,50 @@ public final class Main extends NanoHTTPD implements TableModelListener {
 			log("GET " + uri);
 			f = new File(rootDir + uri);
 			if(f.exists()) {
-				log("FILE EXISTS");
-				if(!checkPermissions(uri)[0]) {
-					log("No read permission");
+				try { // this could not be abstracted into another method because no pass by reference and only one return type
+					checkRead(uri);
+					log("Reading file: " + uri);
+					FileInputStream s = new FileInputStream(f);
+					r.setStatus(Status.OK);
+					r.setData(s);
+				} catch(SecurityException e) {
+					log("Unauthorized");
 					r.setStatus(Status.UNAUTHORIZED);
-				}
-				else {
-					try { // this could not be abstracted into another method because no pass by reference and only one return type
-						log("Reading file: " + uri);
-						FileInputStream s = new FileInputStream(f);
-
-						r.setStatus(Status.OK);
-						r.setData(s);
-					} catch (FileNotFoundException e) {
-						log("File not found");
-						r.setStatus(Status.NOT_FOUND);
-					}
+				} catch (FileNotFoundException e) {
+					log("File not found");
+					r.setStatus(Status.NOT_FOUND);
 				}
 			}
-			else {
-				if(!checkPermissions(uri)[1]) {
-					log("No write permission");
-					r.setStatus(Status.UNAUTHORIZED);
-				}
-				else {
-					r.setStatus(createFile(f));
-				}
-			}
+			else
+				r.setStatus(createFile(f, uri));
 			break;
 
 		// create/empty the specified file
 		case POST:
 			log("POST " + uri);
 			f = new File(rootDir+uri);
-			if(!checkPermissions(uri)[1]) {
-				log("No write permission");
-				r.setStatus(Status.UNAUTHORIZED);
-			}
-			else { 
-				if(f.exists())
-					r.setStatus(writeFile(f, ""));
-				else
-					r.setStatus(createFile(f));
-			}
+			if(f.exists())
+				r.setStatus(writeFile(f, uri, ""));
+			else
+				r.setStatus(createFile(f, uri));
 			break;
 
 		// set contents of file
 		case PUT:
 			log("PUT " + session.getUri());
 			f = new File(rootDir+session.getUri());
-			if(!checkPermissions(uri)[1]) {
-				log("No write permission");
-				r.setStatus(Status.UNAUTHORIZED);
+			if(!f.exists()) {
+				r.setStatus(createFile(f, uri));
+				if(r.getStatus() != Status.OK) break;
 			}
-			else {
-				if(!f.exists()) {
-					r.setStatus(createFile(f));
-					if(r.getStatus() != Status.OK) break;
-				}
-				int contentLength = Integer.parseInt(session.getHeaders().get("content-length"));
-				byte[] buffer = new byte[contentLength];
-				try {
-					session.getInputStream().read(buffer, 0, contentLength);
-					r.setStatus(writeFile(f, new String(buffer)));
-				} catch (IOException e) {
-					log("I/O error");
-					r.setStatus(Status.INTERNAL_ERROR);
-				}
+			int contentLength = Integer.parseInt(session.getHeaders().get("content-length"));
+			byte[] buffer = new byte[contentLength];
+			try {
+				session.getInputStream().read(buffer, 0, contentLength);
+				r.setStatus(writeFile(f, uri, new String(buffer)));
+			} catch (IOException e) {
+				log("I/O error");
+				r.setStatus(Status.INTERNAL_ERROR);
 			}
 			break;
 
@@ -337,21 +300,25 @@ public final class Main extends NanoHTTPD implements TableModelListener {
 		return r;
 	}
 
-	// changes the hashmap in event that the user changed the table
-	public void tableChanged(TableModelEvent e) {
-		int row = e.getFirstRow();
-		int column = e.getColumn();
-		String dir = (String)table.getValueAt(row, 0);
-
-		Boolean[] p = permissions.get(dir);
-		p[column-1] = (Boolean)table.getValueAt(row, column);
-		permissions.replace(dir, p); 
+	public JFrame getFrame() {
+		return frame;
 	}
 
-	// adds to both the hashmap and the table
-	public void addPermission(String dir, boolean allowRead, boolean allowWrite) {
-		permissions.put(dir, new Boolean[]{allowRead, allowWrite});
-		tableModel.addRow(dir, allowRead, allowWrite);
+	// changes a hashtable in event that the user changed the table
+	public void tableChanged(TableModelEvent e) {
+		int r = e.getFirstRow();
+		boolean isReadPerm = e.getColumn() == 1;
+
+		String dir = (String)table.getValueAt(r, 0);
+		boolean newValue;
+		if(isReadPerm) {
+			newValue = (boolean)table.getValueAt(r, 1);
+			readPermissions.replace(dir, newValue);
+		}
+		else {
+			newValue = (boolean)table.getValueAt(r, 2);
+			writePermissions.replace(dir, newValue);
+		}
 	}
 
 }
