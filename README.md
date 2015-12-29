@@ -5,7 +5,7 @@ This is a helper app to be used with the [File I/O Scratch Extension](https://gi
 
 **Safety notice**: It technically is not safe to use this helper app. It allows anything on your computer, Scratch extensions, programs, etc., to gain full access to your file system. However, is unlikely that anything else on your computer will expect that you are running this helper app and exploit it. Nevertheless, be careful. Only use this helper app when you are using Scratch extensions and projects that you trust.
 
-The most recent version of the source code does implement some security, but it is very basic and inconvenient. It needs major changes before it is a full release.
+If you want to use a version that allows you to restrict read and write permissions, try [this one](https://github.com/Znapi/scratchx-file-io/releases/download/v1.2/file-io-helper-app.jar) (See description [here](https://github.com/Znapi/scratchx-file-io/releases/v1.2s/)). Every time the project tries to read or write a file that you haven't set permissions for, a dialog will pop up(you should have the helper app visible so you don't miss it) asking for you to set permissions.
 
 **Java is required** to run this helper app.
 
