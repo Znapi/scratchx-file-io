@@ -29,7 +29,7 @@ ScratchExtensions.register('Simple File I/O',
         ['w', 'write %s to file %s', 'write', 'hello world', 'text.txt'],
         ['w', 'create file %s', 'make', 'text.txt']
     ],
-    url: 'https://github.com/Znapi/scratchx/wiki/Simple-File-I-O'
+    url: 'http://znapi.github.io/scratchx-file-io/'
   },
   ext);
 
