@@ -5,6 +5,8 @@ bin/
 
 LICENSE-NanoHTTPD
 
+*.*~
+
 .DS_Store
 .DS_Store?
 ._*
