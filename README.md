@@ -1,7 +1,9 @@
 # Simple File I/O Scratch Extension
-This branch contains the Scratch File I/O Extension in ext.js, and a minified version in ext.min.js.
+This branch contains the Scratch File I/O Extension in ext.js, a minified version in ext.min.js, and the documentation/project pages for this extension and the helper app.
 
-[Extension documentation](https://github.com/Znapi/scratchx/wiki/File-I-O/). In the future this branch will contain user friendly project pages for users to get the extension and helper app from, rather than the wiki pages on the other repository linked above.
+See the [project pages](https://github.com/Znapi/scratchx/wiki/File-I-O/).
+
+---
 
 The extension initially checks for the helper app by making an OPTIONS request to http://localhost:8080/. It verifies that the response is from the helper app by looking for a `X-Is-ScratchX-File-IO-Helper-App` header that has a value of `yes`.
 
