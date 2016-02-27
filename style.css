@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
 
-    font-family: sans-serif;
+    font-family: sans-serif, serif;
 
     background-color: #fefefe;
 }
@@ -16,11 +16,6 @@ header {
     box-shadow: 0px 0px 5px #bbb;
 }
 
-header nav {
-    margin: 0 auto 0 auto;
-    max-width: 50em;
-}
-
 header h1 {
     margin: 0;
     padding: .25em 0em .1em 0em;
@@ -30,12 +25,17 @@ header h1 {
     text-align: center;
 }
 
-header div {
-    display: inline-flex;
+header nav {
+    margin: 0 auto 0 auto;
+    max-width: 50em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-header div:last-child {
-    float: right;
+header div {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 header a {
@@ -47,7 +47,7 @@ header a {
     border-left: 2px solid #1080bf;
 }
 
-header a:nth-last-child(1) {
+header div a:last-of-type {
     border-right: 2px solid #1080bf;
 }
 
@@ -77,7 +77,8 @@ p:nth-last-child(1) {
 }
 
 .boxes {
-    display:flex;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .boxes>div {
@@ -117,13 +118,15 @@ ol li {
 
 caption {
     font-weight: bold;
-
-    border-bottom: 1px solid #ccc;
 }
 
 td {
     border-bottom: 1px solid #ccc;
     border-collapse: true;
+}
+
+tr:first-of-type td {
+    border-top: 1px solid #ccc;
 }
 
 section#blocks td:first-of-type {
