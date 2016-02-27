@@ -14,73 +14,72 @@
   </header>
   <main>
     <section>
-      <p>A Scratch extension for reading, writing, and creating files. I/O is short for input/output.</p>
-      <p>For the extension to work it requires a helper application.</p>
+      <p>A Scratch extension for reading, writing, and creating files.</p>
+      <p>This Scratch extension requires a helper application in order to access your file system.</p>
       <div class="boxes">
-	<div id="ext-box">
-	  <h3>Extension</h3>
-	  <p><a href="http://znapi.github.io/scratchx-file-io/ext.min.js">URL to load it</a></p>
-	</div>
-	<div id="helper-app-box">
-	  <h3>Helper App</h3>
-	  <p><a href="https://github.com/Znapi/scratchx-file-io/releases/download/v1.2/file-io-helper-app.jar">Download</a><br><small><i>Java required</i></small></p>
-	</div>
+				<div id="ext-box">
+					<h3>Extension</h3>
+					<p><a href="http://znapi.github.io/scratchx-file-io/ext.min.js">URL to load it</a></p>
+				</div>
+				<div id="helper-app-box">
+					<h3>Helper App</h3>
+					<p><a href="https://github.com/Znapi/scratchx-file-io/releases/download/v1.2/file-io-helper-app.jar">Download</a><br><small><i>Java required</i></small></p>
+				</div>
       </div>
     </section>
     <section id="safety-notice" class="notice">
-      <p><b>Safety notice regarding the helper app</b>: Technically it is not safe to use the helper app linked above other programs on your computer <i>could</i> communicate with it the same way the extension does and gain full access to your file system. It is highly unlikely that any other programs on your computer will do this though. Still, <b>be careful</b>. <b>Only use this helper app when using Scratch projects and extensions you trust.</b> I am not responsible if you used malicious projects and extensions with this helper app, and neither is the Scratch Team.</p>
-      <p><b>If you want to use a version that implements security, see <a href="secure-version.html">this page</a>.</b></p>
+      <p><b>Safety notice regarding the helper app</b>: Technically, it is not safe to use the helper app. Other programs on your computer <i>could</i> communicate with it in the same way that the extension does, and gain full access to your file system. In reality, there is practically no chance that any other program on your computer will exploit the helper app and modify your files. However, <b>you do need to be careful, and use only use the helper app with Scratch projects and extensions you trust.</b> I, along with the Scratch Team, are not responsible if damage is done to your computer because you used malicious projects and extensions.</p>
+      <p><b>If you want to use a version that implements a form of security, see <a href="secure-version.html">this page</a>.</b></p>
     </section>
     <nav id="nav">
       <h1>Contents</h1>
       <ul>
-	<li><a href="#basicuse">Basic Use</a></li>
-	<li><a href="#blocks">Blocks</a></li>
-	<li><a href="#usagefromthecommandline">Usage from the Command Line</a></li>
-	<li><a href="#whythehelperapp">Why the Helper App</a></li>
+				<li><a href="#basicuse">Basic Use</a></li>
+				<li><a href="#blocks">Blocks</a></li>
+				<li><a href="#usagefromthecommandline">Usage from the Command Line</a></li>
+				<li><a href="#whythehelperapp">Why the Helper App</a></li>
       </ul>
     </nav>
     <section id="basicuse">
       <h1>Basic Use</h1>
       <ol>
-	<li>Load the extension using the link in the grey box above, or follow <a href="http://scratchx.org/?url=http://znapi.github.io/scratchx-file-io/ext.min.js#scratch" target="_blank">this ScratchX link</a>. The status "light" of the extension should be yellow.</li>
-	<li>Download the helper app from the other grey box above.</li>
-	<li>Run the helper app. On most systems you just double click on it.</li>
-	<li>The helper app will ask for you to choose a root directory. The directory you choose will be the extension's entry point to the file system. For example, if you set it <span class="monospace">C:\path\to\a\directory</span>, then when the project uses the block "<span class="monospace">read file [example.txt]</span>", it will read the file <span class="monospace">C:\path\to\a\directory\example.txt</span>. Choose a directory that doesn't contain sensitive files.</li>
-	<li>After choosing a directory, the window should look something like this:<br>
-	  <img src="example-window.png" alt="&lt;picture of the window&gt;"><br>
-	  Go back to ScratchX, and within 5 seconds, the status light of the extension should change to green, meaning that it is ready to be used.</li>
-	<li>Close the helper app when you are done using the extension.</li>
+				<li>Load the extension using the link in the grey box above, or follow <a href="http://scratchx.org/?url=http://znapi.github.io/scratchx-file-io/ext.min.js#scratch" target="_blank">this ScratchX link</a>. The status "light" of the extension should be yellow.</li>
+				<li>Download the helper app from the other grey box above.</li>
+				<li>Run the helper app using Java. On most systems you can just double click on its icon on your desktop or in a file browser.</li>
+				<li>A window should open, and the helper app will ask for you to choose a "root directory". The root directory will be the extension's entry point to your file system. For example, if you set it to <span class="monospace">C:\path\to\a\directory</span>, then the Scratch block "<span class="monospace">read file [example.txt]</span>" will read the file at <span class="monospace">C:\path\to\a\directory\example.txt</span>. Don't choose a directory that contains sensitive files.</li>
+				<li>After choosing a directory, the window should look something like this:<br>
+					<img src="example-window.png" alt="&lt;picture of the window&gt;"><br>
+					Go back to the window containing ScratchX, and, within 5 seconds, the status light of the extension should change to green, meaning that the extension is ready.</li>
+				<li>When you are done using the extension, close the helper app.</li>
       </ol>
-      <h3>Errors</h3>
-      <p>If you got this error: "<span class="monospace">Couldn't start server: java.net.BindException: Address already in use</span>", it means another local server on your computer is already using port 8080. You will have to stop that server or change it's port number to use this helper app.</p>
+      <h3>Troubleshooting</h3>
+      <p><span class="monospace">Couldn't start server: java.net.BindException: Address already in use</span>: Another server on your computer must already have a socket bound to port 8080. You will have to stop that server or change its port number to use this helper app. The port number of this helper app cannot be changed.</p>
     </section>
     <section id="blocks">
       <h1>Blocks</h1>
       <table>
-	<tr><td><img src="read-from-file.png" alt="read file []"></td><td>Returns the contents of file.</td></tr>
-	<tr><td><img src="write-to-file.png" alt="write [] to file []"></td><td>Overwrites a file with the given contents.</td></tr>
-	<tr><td><img src="create-file.png" alt="create file []"></td><td>Creates a file.</td></tr>
+				<tr><td><img src="read-from-file.png" alt="read file []"></td><td>Returns the contents of the specified file.</td></tr>
+				<tr><td><img src="write-to-file.png" alt="write [] to file []"></td><td>Overwrites the specified file with the given contents.</td></tr>
+				<tr><td><img src="create-file.png" alt="create file []"></td><td>Creates the specified file.</td></tr>
       </table>
     </section>
     <section id="usagefromthecommandline">
       <h1>Usage from the Command Line</h1>
       <h3>Two modes of operation</h3>
-      <p>The helper app has two different operation modes: GUI mode and console mode. In GUI mode, it creates a window using Java's Swing API and prints log messages to that window. In console mode, the app does not create any windows, and writes log messages to the console (using Java's <span class="monospace">System.out.println</span>).</p>
-      <p>If the helper app detects that it is being started from a console, by default it will run in console mode. Otherwise, it will run in GUI mode.</p>
+      <p>The helper app has two different operation modes: GUI mode and console mode. In GUI mode, it creates a window and prints log messages to that window. In console mode, the app does not create any windows, and, instead, writes log messages to the console (or wherever stdout is pointing to).</p>
+      <p>If the helper app detects a console, by default it will run in console mode. Otherwise, it will run in GUI mode.</p>
       <h3>Arguments</h3>
-      <p>The helper app takes two arguments. It won't start and give you an error message if there are more than two arguments. Order does not matter.</p>
+      <p>The helper app takes two arguments. It will quit upon starting and give you an error message if there are more than two arguments. The order of the arguments does not matter.</p>
       <table>
-	<caption>Arguments</caption>
-	<tr><td>Path to root directory:</td><td>Just a path to the directory to use as root. It looks like <span class="monospace">C:\path\to\root</span>. It is <i>required in console mode</i>.</td></tr>
-	<tr><td><span class="monospace">-gui</span>:</td><td>This argument forces the app to run in GUI mode, whether there is a console already or not.</td></tr>
+				<caption>Arguments</caption>
+				<tr><td>Path to root directory:</td><td>Just a path to the directory to use as root. It looks like <span class="monospace">C:\path\to\root</span>. It is <i>required in console mode</i>.</td></tr>
+				<tr><td><span class="monospace">-gui</span>:</td><td>This argument forces the app to run in GUI mode, whether there is a console present already or not.</td></tr>
       </table>
-      <p>An example of the command to start the helper app from a command line would be this: <span class="monospace">java -jar file-io-helper-app.jar /path/to/root/directory -gui</span></p>
+      <p>Example: <span class="monospace">java -jar file-io-helper-app.jar /path/to/root/directory -gui</span></p>
     </section>
     <section id="whythehelperapp">
       <h1>Why the Helper App</h1>
-      <p>Scratch extensions(JavaScript in web pages in general) cannot access files on your computer for good security reasons. To get around it, a helper app that does have access to your files in neccessary. The extension tells the helper app what files to read from and write to.</p>
-      <p>Unfortunately, since the current version does not have any security, other programs on your computer can communicate with it the same way. The secure version has <a href="secure-version.html#drawbacks">some bad drawbacks</a> too. I am working on making much better secure version.</p>
+      <p>Scratch extensions (and JavaScript in web pages in general) cannot access files on your computer for good security reasons. To get around it, a helper app that does have access to your files is necessary. The extension tells the helper app what files to read from and write to.</p>
     </section>
   </main>
 </body>

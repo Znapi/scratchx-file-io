@@ -1,5 +1,5 @@
 # Simple File I/O Scratch Extension
-This branch contains the Scratch File I/O Extension in ext.js, a minified version in ext.min.js, and the documentation/project pages for this extension and the helper app.
+This branch contains the Scratch File I/O Extension in ext.js, a minified version in ext.min.js, and the documentation/project pages for the Scratch extension and the helper app.
 
 See the [project pages](https://github.com/Znapi/scratchx/wiki/File-I-O/).
 

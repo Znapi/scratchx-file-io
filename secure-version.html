@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Secure Version -- File I/O Scratch Extension</title>
+  <title>Secure Version | File I/O Scratch Extension</title>
   <link type="text/css" rel="stylesheet" href="style.css">
   <style>
 #download {
@@ -30,7 +30,8 @@
       <p><i>See <a href="index.html#safety-notice">here</a> for why the normal version is technically not safe.</i></p>
     </section>
     <section>
-      <p>This version of the helper app allows you to deny a Scratch project permission to read or write a file. While exploring ways to make a secure version, I decided to release a version for people who are using the File I/O extension with a project they don't trust, even though this version is not ideal for a release.</p>
+      <p>This version of the helper app allows you to deny permission to read or write a file when something requests to.</p>
+			<p>I released this version of the helper app for people using projects that they don't trust with the extension, and for people who are just paranoid. Make sure you read the "Drawbacks" section.</p>
       <div id="download"><a href="https://github.com/Znapi/scratchx-file-io/releases/download/v1.2s/file-io-helper-app.jar">Download</a></div>
     </section>
     <nav id="nav">
@@ -42,23 +43,23 @@
     </nav>
     <section id="basicuse">
       <h1>How to Use</h1>
-      <p>First, follow the same steps <a href="index.html#basicuse">here</a>.</p>
+      <p>First, follow the same steps for the regular version <a href="index.html#basicuse">here</a>.</p>
       <p>Instead of just a plain window with text on it, the window should look like this:</p>
       <img src="example-window2.png" alt="&lt;picture of the window&gt;">
-      <p>The empty white space in the top half is where you will see and edit file permissions in a list. They don't appear until the project requests to read or write a file.</p>
+      <p>The empty white space in the top half is an emptly list of file permissions. You will be able to see and edit file permissions there. They won't appear until the project requests to read or write a file.</p>
       <p>When a project tries to read or write a file for the first time, the helper app will pop up a dialog asking you for permission that looks like this:</p>
       <img src="example-dialog.png" alt="&lt;a picture of a dialog&gt;">
-      <p>Click allow to grant the permission, and don't allow to deny the project that permission.</p>
-      <p>Once you have clicked allow or don't allow, in the top part of the helper app's window a new item will appear that looks like this:</p>
+      <p>Click "allow" to grant the permission, and "don't allow" to deny the project that permission.</p>
+      <p>Once you have clicked "allow" or "don't allow", a new item in the file permission list will appear that looks like this:</p>
       <img src="example-permission.png" alt="&lt;a picture of a permission&gt;">
-      <p>You can click on the check boxes to change that permission. Permissions that have not been asked for before cannot be changed, so if a checkbox is unchecked and clicking on it doesn't change it, it is because the project hasn't needed to perform that action on that file yet.</p>
+      <p>You can click on the check boxes to change the permissions. Permissions that have not been asked for before cannot be changed, so if a checkbox is unchecked and clicking on it doesn't change it, it is because the project hasn't needed to perform that action on that file yet.</p>
       <p>Play with it a little <a href="http://scratchx.org/?url=http://znapi.github.io/scratchx-file-io/ext.min.js#scratch" target="_blank">in ScratchX</a> to get a better feel for how it works.</p>
     </section>
     <section id="drawbacks">
       <h1>Drawbacks</h1>
-      <p>Here are some drawbacks this version of the helper app has that can make it undesireable to use, and why this version is not ideal for a release.
+      <p>This version of the helper app has some drawbacks can make it undesireable to use, and why it isn't the main release. I plan on making a more user-friendly version in the future.
       <h4>Helper app window must always be visible</h4>
-      <p>You can't maximize/fullscreen your browser window with ScratchX with this version of the helper app because the helper app window needs to be visible at all times. Why? The dialogs it pops up asking for permission can't take the focus away from your browser window, so if you have the helper app hidden behind your browser, you won't see the dialogs pop up.</p>
+      <p>You can't maximize/fullscreen your browser window with ScratchX with this version of the helper app, because the helper app window needs to be visible at all times. Why? The dialogs it pops up asking for permission can't take the focus away from your browser window, so if you have the helper app hidden behind your browser, you won't see the dialogs pop up.</p>
       <h4>Projects can't accurately detect file permissions</h4>
       <p>A project can't accurately tell what the read/write permissions of a file are, which can cause problems if it needs to read or write a file.</p>
       <h4>File permissions must be set every time the helper app is restarted</h4>
