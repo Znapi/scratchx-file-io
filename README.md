@@ -3,7 +3,7 @@ This is the File I/O Scratch Extension. It also requires a helper app for full f
 
 The extension code is in `ext.js`, and a minified version is in `ext.min.js`. The documentation/project pages for the Scratch extension and the helper app are also located in this repository.
 
-See the [project pages](https://github.com/Znapi/scratchx/wiki/File-I-O/).
+See the [project pages](https://znapi.github.io/scratchx-file-io/).
 
 ---
 
