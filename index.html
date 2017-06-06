@@ -8,8 +8,7 @@
   <header>
     <h1>File I/O Scratch Extension</h1>
     <nav>
-      <div><a href="">Home</a><a href="secure-version.html">"Secure" version</a></div>
-      <div><a href="https://github.com/Znapi/scratchx-file-io/">GitHub</a></div>
+      <a href="https://github.com/Znapi/scratchx-file-io/">GitHub</a>
     </nav>
   </header>
   <main>
@@ -19,17 +18,17 @@
       <div class="boxes">
 				<div id="ext-box">
 					<h3>Extension</h3>
-					<p><a href="http://znapi.github.io/scratchx-file-io/ext.min.js">URL to load it</a></p>
+					<p><a href="http://znapi.github.io/scratchx-file-io/ext.min.js">URL to extension</a></p>
 				</div>
 				<div id="helper-app-box">
 					<h3>Helper App</h3>
-					<p><a href="https://github.com/Znapi/scratchx-file-io-app/releases/download/v1.2/file-io-helper-app.jar">Download</a><br><small><i>Java required</i></small></p>
+					<p><a href="https://github.com/Znapi/scratchx-file-io-app/releases/download/v2.0/file-io-helper-app.jar">Download</a><br><small><i>Java required</i></small></p>
 				</div>
       </div>
     </section>
     <section id="safety-notice" class="notice">
-      <p><b>Safety notice regarding the helper app</b>: Technically, it is not safe to use the helper app. Other programs on your computer <i>could</i> communicate with it in the same way that the extension does, and gain full access to your file system. In reality, there is practically no chance that any other program on your computer will exploit the helper app and modify your files. However, <b>you do need to be careful, and use only use the helper app with Scratch projects and extensions you trust.</b> I, along with the Scratch Team, are not responsible if damage is done to your computer because you used malicious projects and extensions.</p>
-      <p><b>If you want to use a version that implements a form of security, see <a href="secure-version.html">this page</a>.</b></p>
+      <p><b>Security notice</b>: By default, the helper app requires you to specify per file permissions so that you can use it safely. Disabling the permissions requirement, however, gives free access to your filesystem. Do not disable the permissions requirement unless you trust the project(s) you are using. Though, personally, I doubt you'll encounter malicious ScratchX projects, I must warn that neither I nor the Scratch Team are responsible for any damage to your computer that your use of the helper app causes.</p>
+      </p>
     </section>
     <nav id="nav">
       <h1>Contents</h1>
@@ -43,17 +42,17 @@
     <section id="basicuse">
       <h1>Basic Use</h1>
       <ol>
-				<li>Load the extension using the link in the grey box above, or follow <a href="http://scratchx.org/?url=http://znapi.github.io/scratchx-file-io/ext.min.js#scratch" target="_blank">this ScratchX link</a>. The status "light" of the extension should be yellow.</li>
-				<li>Download the helper app from the other grey box above.</li>
+				<li>Load the extension using the link in the left-most grey box above, or follow <a href="http://scratchx.org/?url=http://znapi.github.io/scratchx-file-io/ext.min.js#scratch" target="_blank">this ScratchX link</a>. The status "light" of the extension should be yellow.</li>
+				<li>Download the helper app from the right-most grey box above.</li>
 				<li>Run the helper app using Java. On most systems you can just double click on its icon on your desktop or in a file browser.</li>
-				<li>A window should open, and the helper app will ask for you to choose a "root directory". The root directory will be the extension's entry point to your file system. For example, if you set it to <span class="monospace">C:\path\to\a\directory</span>, then the Scratch block "<span class="monospace">read file [example.txt]</span>" will read the file at <span class="monospace">C:\path\to\a\directory\example.txt</span>. Don't choose a directory that contains sensitive files.</li>
+				<li>A window should open, and the helper app will ask for you to choose a "root directory". The root directory will be the extension's entry point to your file system. For example, if you set it to <span class="monospace">C:\path\to\a\directory</span>, then the Scratch block "<span class="monospace">read file [example.txt]</span>" will read the file at <span class="monospace">C:\path\to\a\directory\example.txt</span>. You may want to create a new, empty directory and make that the root rather than choosing an existing directory.</li>
 				<li>After choosing a directory, the window should look something like this:<br>
 					<img src="example-window.png" alt="&lt;picture of the window&gt;"><br>
-					Go back to the window containing ScratchX, and, within 5 seconds, the status light of the extension should change to green, meaning that the extension is ready.</li>
+					Go back to the window containing ScratchX, and, within 5 seconds, the status light of the extension should change to green, meaning that the extension is ready. You can now use the extension blocks in ScratchX.</li>
 				<li>When you are done using the extension, close the helper app.</li>
       </ol>
       <h3>Troubleshooting</h3>
-      <p><span class="monospace">Couldn't start server: java.net.BindException: Address already in use</span>: Another server on your computer must already have a socket bound to port 8080. You will have to stop that server or change its port number to use this helper app. The port number of this helper app cannot be changed.</p>
+      <p><span class="monospace">Couldn't start server: java.net.BindException: Address already in use</span>: Another application on your computer already has a socket bound to port 8080. You will have to stop that application or change the port number it uses in order to use this helper app. The port number of this helper app cannot be changed.</p>
     </section>
     <section id="blocks">
       <h1>Blocks</h1>
@@ -61,26 +60,27 @@
 				<tr><td><img src="read-from-file.png" alt="read file []"></td><td>Returns the contents of the specified file.</td></tr>
 				<tr><td><img src="write-to-file.png" alt="write [] to file []"></td><td>Overwrites the specified file with the given contents.</td></tr>
 				<tr><td><img src="append-to-file.png" alt="append [] to file []"></td><td>Appends to the specified file with the given contents.</td></tr>
-				<tr><td><img src="create-file.png" alt="create file []"></td><td>Creates the specified file.</td></tr>
+				<tr><td><img src="newline.png" alt="(newline)"></td><td>Reports the newline character.</td></tr>
       </table>
     </section>
     <section id="usagefromthecommandline">
       <h1>Usage from the Command Line</h1>
       <h3>Two modes of operation</h3>
-      <p>The helper app has two different operation modes: GUI mode and console mode. In GUI mode, it creates a window and prints log messages to that window. In console mode, the app does not create any windows, and, instead, writes log messages to the console (or wherever stdout is pointing to).</p>
-      <p>If the helper app detects a console, by default it will run in console mode. Otherwise, it will run in GUI mode.</p>
+      <p>The helper app has two different operation modes: GUI mode and console mode. In GUI mode, the app creates its own window, and provides the option to require you to specify individual file permissions. In console mode, the app does not create any windows, and, instead, writes log messages to the console (or wherever stdout is pointing to). The helper app does not provide any means to specify file permissions in console mode. Also, The permissions requirement cannot be enabled in console mode.</p>
+      <p>If the helper app is launched from a console, by default it will run in console mode. Otherwise, it will run in GUI mode.</p>
       <h3>Arguments</h3>
-      <p>The helper app takes two arguments. It will quit upon starting and give you an error message if there are more than two arguments. The order of the arguments does not matter.</p>
+      <p>The helper app takes three command line arguments. The order of the arguments does not matter. The helper app will fail to launch and provide helpful error messages if incorrect options are specified.</p>
       <table>
 				<caption>Arguments</caption>
 				<tr><td>Path to root directory:</td><td>Just a path to the directory to use as root. It looks like <span class="monospace">C:\path\to\root</span>. It is <i>required in console mode</i>.</td></tr>
 				<tr><td><span class="monospace">-gui</span>:</td><td>This argument forces the app to run in GUI mode, whether there is a console present already or not.</td></tr>
+				<tr><td><span class="monospace">-nosecurity</span>:</td><td>This argument requires the `-gui` argument to also be specified. This argument will launch the helper app with the permissions requirement disabled, though it can be reenabled through the GUI.</td></tr>
       </table>
       <p>Example: <span class="monospace">java -jar file-io-helper-app.jar /path/to/root/directory -gui</span></p>
     </section>
     <section id="whythehelperapp">
       <h1>Why the Helper App</h1>
-      <p>Scratch extensions (and JavaScript in web pages in general) cannot access files on your computer for good security reasons. To get around it, a helper app that does have access to your files is necessary. The extension tells the helper app what files to read from and write to.</p>
+      <p>Scratch extensions (and JavaScript in web pages in general) cannot access files on your computer for good security reasons. To get around it, a helper app that does have access to your files is necessary. The extension works with the helper app to read and write files.</p>
     </section>
   </main>
 </body>

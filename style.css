@@ -28,26 +28,16 @@ header h1 {
 header nav {
     margin: 0 auto 0 auto;
     max-width: 50em;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-header div {
-    display: flex;
-    flex-wrap: wrap;
 }
 
 header a {
     padding: .25em;
+		float: right;
 
     color: white;
     text-decoration: none;
     background-color: #20a0e8;
     border-left: 2px solid #1080bf;
-}
-
-header div a:last-of-type {
     border-right: 2px solid #1080bf;
 }
 
