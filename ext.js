@@ -16,6 +16,10 @@
 				makeRequestToHelperApp('POST', dir, callback);
 		};
 
+		ext.newline_char = function() {
+				return '\n';
+		}
+
 		var helperDetected = false;
 
 		var intervals = {};
@@ -41,6 +45,7 @@
 																			 ['w', 'write %s to file %s', 'write', 'hello world', 'text.txt'],
 																			 ['w', 'append %s to file %s', 'append', 'hello world', 'text.txt'],
 																			 ['w', 'create file %s', 'make', 'text.txt'],
+																			 ['r', 'newline', 'newline_char']
 																	 ],
 																	 url: 'http://znapi.github.io/scratchx-file-io/'
 															 },
