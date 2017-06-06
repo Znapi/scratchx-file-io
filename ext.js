@@ -8,6 +8,10 @@
 				makeRequestToHelperApp('PUT', dir, callback, text);
 		};
 
+		ext.append = function(text, dir, callback) {
+				makeRequestToHelperApp('PUT', dir, callback, text, "append");
+		};
+
 		ext.make = function(dir, callback) {
 				makeRequestToHelperApp('POST', dir, callback);
 		};
@@ -35,15 +39,16 @@
 																	 blocks: [
 																			 ['R', 'read from file %s', 'read', 'text.txt'],
 																			 ['w', 'write %s to file %s', 'write', 'hello world', 'text.txt'],
-																			 ['w', 'create file %s', 'make', 'text.txt']
+																			 ['w', 'append %s to file %s', 'append', 'hello world', 'text.txt'],
+																			 ['w', 'create file %s', 'make', 'text.txt'],
 																	 ],
 																	 url: 'http://znapi.github.io/scratchx-file-io/'
 															 },
 															 ext);
 
-		function makeRequestToHelperApp(method, uri, callback, body) {
+		function makeRequestToHelperApp(method, uri, callback, body, action) {
 				var intervalID;
-				function request(method, uri, body, onSuccess, onFailure) {
+				function request(method, uri, body, action, onSuccess, onFailure) {
 						var r = new XMLHttpRequest();
 						r.onreadystatechange = function() {
 								if(r.readyState === 4) {
@@ -54,16 +59,18 @@
 								}
 						};
 						r.open(method, 'http://localhost:8080/'+uri, true);
+						if(action !== undefined)
+								r.setRequestHeader("X-Action", action);
 						if(body !== undefined)
 								r.send(body);
 						else
 								r.send();
 				}
-				request(method, uri, body,
+				request(method, uri, body, action,
 								callback,
 								function() {
 										helperDetected = false;
-										intervalID = window.setInterval(request, 5000, method, uri, body,
+										intervalID = window.setInterval(request, 5000, method, uri, body, action,
 																										function(rsp) {window.clearInterval(intervalID); delete intervals[intervalID]; helperDetected=true; callback(rsp)},
 																										function() {}
 																									 );
