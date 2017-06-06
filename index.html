@@ -57,9 +57,9 @@
     <section id="blocks">
       <h1>Blocks</h1>
       <table>
-				<tr><td><img src="read-from-file.png" alt="read file []"></td><td>Returns the contents of the specified file.</td></tr>
-				<tr><td><img src="write-to-file.png" alt="write [] to file []"></td><td>Overwrites the specified file with the given contents.</td></tr>
-				<tr><td><img src="append-to-file.png" alt="append [] to file []"></td><td>Appends to the specified file with the given contents.</td></tr>
+				<tr><td><img src="read-from-file.png" alt="read file []"></td><td>Returns the contents of the specified file. Note that this includes any newline characters, including leading and trailing newlines.</td></tr>
+				<tr><td><img src="write-to-file.png" alt="write [] to file []"></td><td>Overwrites the specified file with the given contents. Note that it does not automatically append a newline to the end.</td></tr>
+				<tr><td><img src="append-to-file.png" alt="append [] to file []"></td><td>Appends to the specified file with the given contents. Note that this block also automatically appends a trailing newline after the given contents are appended, but not before.</td></tr>
 				<tr><td><img src="newline.png" alt="(newline)"></td><td>Reports the newline character.</td></tr>
       </table>
     </section>
